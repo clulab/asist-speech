@@ -1,8 +1,6 @@
 import speech_recognition as sr
 import sys
 
-input_file = sys.argv[1]
-
 
 def transcribe_file(input_file):
 
@@ -11,11 +9,15 @@ def transcribe_file(input_file):
     with stim as source:
         audio = r.record(source)
 
-    transcription = r.recognize_sphinx(audio)
+    try:
+        transcription = r.recognize_sphinx(audio)
+    except:
+        transcription = None
 
     return transcription
 
 
 if __name__ == "__main__":
+    input_file = sys.argv[1]
     result = transcribe_file(input_file)
     print(result)
